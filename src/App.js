@@ -18,14 +18,13 @@ function App() {
     <Navbar>
       <NavItem icon={<PlusIcon />} />
       <NavItem icon={<BellIcon />} />
-      <NavItem icon={<MessengerIcon />}>
-        <DropdownMenu></DropdownMenu>
+
+      <NavItem icon={<MessengerIcon />} >
+        <Messenger></Messenger>
       </NavItem>
 
       <NavItem icon={<CaretIcon />} >
-
         <DropdownMenu></DropdownMenu>
-
       </NavItem>
 
 
@@ -56,11 +55,74 @@ function NavItem(props) {
       </a>
 
       {open && props.children}
+
     </li>
   )
 }
 
 
+
+function Messenger(props) {
+
+  const [activeMenu, setActiveMenu] = useState('main');
+  const [menuHeight, setMenuHeight] = useState(null);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
+  }, [])
+
+  function calcHeight(el) {
+    const height = el.offsetHeight;
+    setMenuHeight(height);
+  }
+
+
+  function MessengerItem(props) {
+    return (
+      <a href="https://www.instagram.com/ngeri6/" className="menu-item" onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}>
+        <span className="icon-button">{props.leftIcon}</span>
+        {props.children}
+        <span className="icon-right">{props.rightIcon}</span>
+
+      </a>
+    )
+  }
+
+
+
+  return (
+    <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef} >
+      <CSSTransition
+        in={activeMenu === 'main'}
+        timeout={500}
+        classNames="menu-primary"
+        unmountOnExit
+        onEnter={calcHeight}
+      >
+        <div className="menu">
+
+          <MessengerItem 
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}>
+            <a href="https://www.facebook.com/gergo.nagy.545/">Gergo</a></MessengerItem>
+
+          <MessengerItem
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}>
+            <a href="https://www.instagram.com/ngeri6/">Geri Insta</a>
+          </MessengerItem>
+
+    
+
+
+        </div>
+
+      </CSSTransition>
+
+    </div>
+  )
+}
 
 
 
@@ -104,11 +166,33 @@ function DropdownMenu() {
         <div className="menu">
 
           <DropdownItem>My Profile</DropdownItem>
+
           <DropdownItem
             leftIcon={<BoltIcon />}
             rightIcon={<ChevronIcon />}
             goToMenu="settings">
             Settings
+          </DropdownItem>
+
+          <DropdownItem
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}
+            goToMenu="help">
+            Help & support
+          </DropdownItem>
+
+          <DropdownItem
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}
+            goToMenu="display">
+            Display preferences
+          </DropdownItem>
+
+          <DropdownItem
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}
+          >
+            Log Out
           </DropdownItem>
 
 
@@ -127,19 +211,63 @@ function DropdownMenu() {
         <div className="menu">
           <DropdownItem goToMenu="main"
             leftIcon={<ArrowIcon />}
-          />
+          >Settings & privacy</DropdownItem>
 
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
-          <DropdownItem>Settigns</DropdownItem>
+          <DropdownItem>Setting</DropdownItem>
+          <DropdownItem>Privacy Checkup</DropdownItem>
+          <DropdownItem>Activity log</DropdownItem>
+          <DropdownItem>Language</DropdownItem>
+
 
         </div>
 
       </CSSTransition>
+
+      <CSSTransition
+        in={activeMenu === 'help'}
+
+        timeout={500}
+        classNames="menu-secondary"
+        unmountOnExit
+        onEnter={calcHeight}
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main"
+            leftIcon={<ArrowIcon />}
+          >Help Support</DropdownItem>
+
+          <DropdownItem>Help Centre</DropdownItem>
+          <DropdownItem>Help community</DropdownItem>
+          <DropdownItem>Suppport Inbox</DropdownItem>
+
+
+
+        </div>
+
+      </CSSTransition>
+
+      <CSSTransition
+        in={activeMenu === 'display'}
+
+        timeout={500}
+        classNames="menu-secondary"
+        unmountOnExit
+        onEnter={calcHeight}
+      >
+        <div className="menu">
+          <DropdownItem goToMenu="main"
+            leftIcon={<ArrowIcon />}
+          >Disp pref</DropdownItem>
+
+          <DropdownItem>Dark mode</DropdownItem>
+          <DropdownItem>Compact mode</DropdownItem>
+
+
+        </div>
+
+      </CSSTransition>
+
+
     </div>
   );
 }
