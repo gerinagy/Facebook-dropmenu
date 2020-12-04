@@ -62,7 +62,7 @@ function NavItem(props) {
 
 
 
-function Messenger(props) {
+function Messenger() {
 
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
@@ -80,7 +80,7 @@ function Messenger(props) {
 
   function MessengerItem(props) {
     return (
-      <a href="https://www.instagram.com/ngeri6/" className="menu-item" onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}>
+      <a href={props.href} className="menu-item" >
         <span className="icon-button">{props.leftIcon}</span>
         {props.children}
         <span className="icon-right">{props.rightIcon}</span>
@@ -102,18 +102,19 @@ function Messenger(props) {
       >
         <div className="menu">
 
-          <MessengerItem 
+          <MessengerItem href="https://www.facebook.com/gergo.nagy.545/"
             leftIcon={<BoltIcon />}
             rightIcon={<ChevronIcon />}>
-            <a href="https://www.facebook.com/gergo.nagy.545/">Gergo</a></MessengerItem>
+            Gergo</MessengerItem>
 
-          <MessengerItem
+          <MessengerItem 
+            href="https://www.instagram.com/ngeri6/"
             leftIcon={<BoltIcon />}
             rightIcon={<ChevronIcon />}>
-            <a href="https://www.instagram.com/ngeri6/">Geri Insta</a>
+            Geri Insta
           </MessengerItem>
 
-    
+
 
 
         </div>
