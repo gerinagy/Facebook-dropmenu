@@ -114,6 +114,18 @@ function Messenger() {
             Geri Insta
           </MessengerItem>
 
+          <MessengerItem href="https://www.facebook.com/gergo.nagy.545/"
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}>
+            Gergo</MessengerItem>
+
+          <MessengerItem
+            href="https://www.instagram.com/ngeri6/"
+            leftIcon={<BoltIcon />}
+            rightIcon={<ChevronIcon />}>
+            Geri Insta
+          </MessengerItem>
+
 
 
 
